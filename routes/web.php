@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Auth\LupaPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Landing Page
+Route::get('/', [LandingPageController::class, 'index'])->name('BuildUp');
 
+// Register
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/register', 'showRegisterForm')->name('register');
     Route::post('/register', 'register');
