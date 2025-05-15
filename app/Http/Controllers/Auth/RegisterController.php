@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+
 
 class RegisterController extends Controller
 {
@@ -23,6 +27,7 @@ class RegisterController extends Controller
             'desa_kelurahan' => ['required', 'string', 'max:255'],
             'kecamatan' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'min:3', 'max:230'],
+            'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'min:5', 'max:230'],
             'no_hp' => ['required', 'numeric', 'digits_between:10,15', 'unique:users,no_hp'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => [
@@ -42,6 +47,12 @@ class RegisterController extends Controller
             'name.regex' => 'Nama tidak boleh mengandung angka atau simbol!',
             'name.min' => 'Nama minimal 5 karakter',
             'name.max' => 'Nama maksimal 230 karakter',
+        ], [
+            'name.required' => 'Nama wajib diisi!',
+            'name.string' => 'Nama harus berupa huruf!',
+            'name.regex' => 'Nama tidak boleh mengandung angka atau simbol!',
+            'nama.min' => 'Nama minimal 5 karakter',
+            'nama.max' => 'Nama maksimal 230 karakter',
 
             'no_hp.required' => 'Nomor HP wajib diisi!',
             'no_hp.numeric' => 'Nomor HP harus berupa angka!',
@@ -85,6 +96,8 @@ class RegisterController extends Controller
             }
         }
         $alamatLengkap = $request->alamat_jalan . '; ' . $request->desa_kelurahan . '; ' . $request->kecamatan;
+        ]);
+
         $user = User::create([
             'name' => $request->name,
             'no_hp' => $request->no_hp,

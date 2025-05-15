@@ -50,6 +50,7 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             $redirectRoute = 'admin.dashboard';
         } elseif ($user->role === 'petugas') {
+
             $alamatParts = explode(';', $user->alamat);
             $desa = isset($alamatParts[1]) ? trim($alamatParts[1]) : null;
             $kecamatan = isset($alamatParts[2]) ? trim($alamatParts[2]) : null;
@@ -57,6 +58,7 @@ class LoginController extends Controller
                 'desa_petugas' => $desa,
                 'kecamatan_petugas' => $kecamatan,
             ]);
+
             $redirectRoute = 'petugas.inputcpb';
         } else {
             Auth::logout();
