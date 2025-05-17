@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LupaPasswordController;
 
 // Landing Page
@@ -40,6 +41,7 @@ Route::controller(LupaPasswordController::class)->group(function () {
 
 Route::middleware(['auth', 'checkRole'])->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'showDashboardAdmin'])->name('admin.dashboard');
         // Profile
         Route::get('/profile', [ProfileController::class, 'showProfile'])->name('admin.profile');
         Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('admin.profile.update');
