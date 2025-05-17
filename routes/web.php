@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Petugas\InputCPBController;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\Auth\LupaPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\LupaPasswordController;
 
-Route::get('/', function () {
-    return view('welcome');
 
 // Landing Page
 Route::get('/', [LandingPageController::class, 'index'])->name('BuildUp');
@@ -43,7 +42,9 @@ Route::controller(LupaPasswordController::class)->group(function () {
 });
 
 Route::middleware(['auth', 'checkRole'])->group(function () {
+
     Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'showDashboardAdmin'])->name('admin.dashboard');
         // Profile
         Route::get('/profile', [ProfileController::class, 'showProfile'])->name('admin.profile');
         Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('admin.profile.update');
@@ -56,7 +57,8 @@ Route::middleware(['auth', 'checkRole'])->group(function () {
         Route::put('/jadwal/update/{id}', [JadwalController::class, 'updateJadwal'])->name('admin.update.jadwal');
         Route::delete('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal'])->name('admin.delete.jadwal');
     });
-Route::prefix('petugas')->group(function () {
+
+    Route::prefix('petugas')->group(function () {
         // CPB input
         Route::get('/inputCPB', [InputCPBController::class, 'showFormInpuCPB'])->name('petugas.inputcpb');
         Route::get('/cpb/cetak-surat/{id}', [InputCPBController::class, 'cetakSurat'])->name('cpb.cetakSurat');
@@ -65,5 +67,7 @@ Route::prefix('petugas')->group(function () {
         Route::post('/cpb/update/{id}', [InputCPBController::class, 'updateCPB'])->name('petugas.update.cpb');
         Route::delete('/cpb/delete/{id}', [InputCPBController::class, 'deleteCPB'])->name('petugas.delete.cpb');
     });
+
 });
+
 
