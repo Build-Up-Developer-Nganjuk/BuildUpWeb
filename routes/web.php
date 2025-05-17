@@ -1,17 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Petugas\InputCPBController;
-use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Admin\DataController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LupaPasswordController;
-
 
 // Landing Page
 Route::get('/', [LandingPageController::class, 'index'])->name('BuildUp');
@@ -56,6 +55,10 @@ Route::middleware(['auth', 'checkRole'])->group(function () {
         Route::get('/jadwal/edit/{id}', [JadwalController::class, 'showEditJadwal'])->name('admin.edit.jadwal');
         Route::put('/jadwal/update/{id}', [JadwalController::class, 'updateJadwal'])->name('admin.update.jadwal');
         Route::delete('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal'])->name('admin.delete.jadwal');
+
+        // Data Verif
+        Route::get('/data/verif/cpb', [DataController::class, 'showDataVerifCPB'])->name('admin.data_verif_cpb');
+        Route::delete('/data/verif/cpb', [DataController::class, 'deleteDataVerifCPB'])->name('admin.delete.data_verif_cpb');
     });
 
     Route::prefix('petugas')->group(function () {
@@ -67,7 +70,4 @@ Route::middleware(['auth', 'checkRole'])->group(function () {
         Route::post('/cpb/update/{id}', [InputCPBController::class, 'updateCPB'])->name('petugas.update.cpb');
         Route::delete('/cpb/delete/{id}', [InputCPBController::class, 'deleteCPB'])->name('petugas.delete.cpb');
     });
-
 });
-
-
