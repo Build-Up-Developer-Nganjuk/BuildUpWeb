@@ -33,4 +33,12 @@ Route::controller(LupaPasswordController::class)->group(function () {
     Route::post('/lupa-password-send', 'sendOTP')->name('kirim.otp');
     Route::get('/lupa-password-new', 'showKonfirPasswordForm')->name('konfir.password');
     Route::post('/lupa-password-update', 'updatePassword')->name('perbarui.password');
+
+
 });
+
+// Rekapan Verifikasi CPB
+        Route::get('/rekapan/verifikasi', [RekapanVerifikasiController::class, 'showRekapVerif'])->name('admin.rekap.verif');
+        Route::post('/rekapan/verifikasi/pdf', [RekapanVerifikasiController::class, 'downloadVerifikasiPdf'])->name('rekap.verif.pdf');
+        Route::post('/rekapan/verifikasi/excel', [RekapanVerifikasiController::class, 'downloadVerifikasiExcel'])->name('rekap.verif.excel');
+        Route::post('/rekapan/verifikasi/word', [RekapanVerifikasiController::class, 'downloadVerifikasiWord'])->name('rekap.verif.word');
