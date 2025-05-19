@@ -36,7 +36,7 @@ class RegisterController extends Controller
             'no_hp.required' => 'Nomor HP wajib diisi!',
             'no_hp.numeric' => 'Nomor HP harus berupa angka!',
             'no_hp.digits_between' => 'Nomor HP harus memiliki panjang antara 10-15 digit!',
-            'no_hp.unique' => 'Nnomor HP sudah terdaftar, gunakan yang lain!',
+            'no_hp.unique' => 'Nomor HP sudah terdaftar, gunakan yang lain!',
 
             'email.required' => 'Email wajib diisi!',
             'email.email' => 'Format email tidak valid!',
